@@ -14,7 +14,7 @@ public class ConnectToDatabase {
       try {
     	  Class.forName("com.mysql.cj.jdbc.Driver");
     	  System.out.println("Driver loaded");
-         con = DriverManager.getConnection("jdbc:mysql://localhost:3306?user = root & password = Mathi@30 ");
+         con = DriverManager.getConnection("jdbc:mysql://localhost:3306?user = root & password = ****** ");
          if (con != null) {
             System.out.println("Database connection is successful !!!!");
          }
