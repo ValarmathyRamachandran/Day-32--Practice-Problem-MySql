@@ -1,0 +1,73 @@
+use  AddressBook_Service_DB;
+
+create table AddressBook(
+		Id int unsigned not null auto_increment primary key,
+		First_Name varchar(250) not null,
+        Last_Name  varchar(250) not null,
+		Address   varchar(255) ,
+		City varchar(50) ,
+		State varchar(50) ,
+		Zip int(6) ,
+		Phone_Number varchar(12) not null default 0,
+        Email varchar(150) not null
+        );
+        
+         insert into AddressBook (
+         First_Name,Last_Name,Address,City,State,Zip,Phone_Number,Email) values
+         ("Andrea","Ram","1/24 xyz street","Delhi","New Delhi",500078,9876543210,"andrea.r@gmail.com"),
+         ("Bill","Gates","1/30 abc street","Mumbai","Maharastra",700070,8765432190,"billg@gmaiul.com"),
+         ("Mark","Benjamin","1/24 cde street","Chennai","TamilNadu",600006,7654321890,"mark.ben@gmail.com"),
+         ("Sheela","Henry","1/67 def street", "Chennai","TamilNadu", 4000234,6543217809,"sheelah@gmail.com"
+         );
+         
+         desc AddressBook;
+         select * from AddressBook;
+        
+        update  AddressBook set Last_Name = "Ramesh" where First_Name = "Andrea";
+        
+		delete from AddressBook where First_Name = "Sheela";
+        
+        select * from AddressBook where City = "Chennai" or State = "TamilNadu"; -- UC-6
+         
+		select * , count(*) from AddressBook group by City;  -- uc-7
+        
+        select * from AddressBook where City = "Chennai" order by First_Name; -- UC-8
+        
+        Alter table AddressBook add (AddressBook_Name varchar(150), Type varchar(50) ) ;
+		update AddressBook set Type = "Family" ,AddressBook_Name = "BBook"  where First_Name = "Bill";
+        update AddressBook set Type = "Friends" ,AddressBook_Name = "ABook"where First_Name = "Andrea";
+		update AddressBook set Type = "Profession" ,AddressBook_Name = "MBook"where First_Name = "Mark";
+		update AddressBook set Type = "Friends" ,AddressBook_Name = "SBook"where First_Name = "Sheela";
+        
+        select Type,count(Type) from AddressBook group by Type; -- UC-10
+        
+        insert into AddressBook
+		(AddressBook_Name,Type,First_Name,Last_Name,Address,City,State,Zip,Phone_Number,Email) values
+		("CBook","Family","Charlie","Sam","25,TYU","Bangalore","Karnataka",800123,7654321900,"charlie.s@gmail.com"),
+		("MBook","Friends","Mukesh","Akash","345,NUY","AndhraPradesh","Chitore",690865,9876543214,"mukesha@gmail.com");  -- UC 11
+
+create table relation_type(
+Type_Id int not null,
+Type varchar(50) not null,
+primary key(Type)
+);
+
+insert into relation_type
+(Type_Id,Type)
+ values
+ (1,"Family"),
+ (2,"Friends"),
+ (3,"Profession");
+ alter table AddressBook add foreign key(Type) references relation_type(Type);
+ 
+ SELECT * FROM AddressBook inner join relation_type on AddressBook.Type = relation_type.Type;
+ SELECT * FROM AddressBook inner join relation_type rt on AddressBook.Type = rt.Type where AddressBook.City = "Chennai" or AddressBook.State = "TamilNadu";
+ select City,count(*) from AddressBook ad inner join relation_type rt on ad.Type = rt.Type group by ad.City;
+ select State,count(*) from AddressBook ad inner join relation_type rt on ad.Type = rt.Type group by ad.State;
+ select * from AddressBook ad inner join relation_type rt on ad.Type = rt.Type order by ad.First_Name;
+ select ad.Type,count(*) from AddressBook ad inner join relation_type rt on ad.Type = rt.Type group by Type;
+
+ 
+        
+        
+         
