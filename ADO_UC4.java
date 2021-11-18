@@ -12,7 +12,7 @@ public class ADO_UC4 {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("driver loaded");
             connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306?user = root & password = Mathi@30");
+                "jdbc:mysql://localhost:3306?user = root & password = *******");
             System.out.println("connection established");
             stmt = connection.prepareStatement(query);
             System.out.println("platform created");
